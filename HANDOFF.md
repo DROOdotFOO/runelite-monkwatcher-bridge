@@ -34,7 +34,7 @@ Likely failure modes if the smoke test misbehaves:
 | Plugin doesn't appear in sidebar | jar in wrong path; check `~/.runelite/sideloaded-plugins/` |
 | `nc -U` connects but no JSON streams | socket path mismatch between plugin config and shell; `BridgeConfig.socketPath()` resolves XDG_RUNTIME_DIR or `/tmp` |
 | JSON streams but `isMonk: false` on a real monk | `NpcCatalog.MONK_IDS` (currently just `{4127}`) doesn't include the live ID. Use RuneLite's `Ctrl+Shift+D` NPC overlay and add the actual ID |
-| Compile errors against runelite-client API | `runelite-client:1.10.+` is a floating minor pin; pin to a specific version in `build.gradle.kts` and the spec's flagged methods (`getMouseIdleTicks`, `getKeyboardIdleTicks`, `getEnergy()`) may need adjustment |
+| Compile errors against runelite-client API | `runelite-client:1.10.+` is a floating minor pin; pin to a specific version in `build.gradle.kts`. Idle-tick and energy methods (`getMouseIdleTicks`, `getKeyboardIdleTicks`, `getEnergy()`) shift across RuneLite releases and may need adjustment |
 
 ## Open Phase 4 items (deferred, not abandoned)
 
@@ -42,7 +42,7 @@ Original plan parked these as "do only if Raxol actually needs them" — confirm
 
 - **`level_up` event wire-up.** Stub was dropped in Phase 3 because an empty `@Subscribe` adds an event-bus call per XP drop. Wire up only if Raxol's view consumes it.
 - **Dropped-frames counter** on `BridgeSocketServer.outbox.offer()` failure. ADR-0003 documents "silent drops"; instrument only if drops are observed in practice.
-- **Single-consumer enforcement.** ADR-0005 says multi-connect is undefined; the spec implementation lets two consumers steal messages from each other. Either reject second accept or fan out per-writer queues — only if a "second consumer" use case appears.
+- **Single-consumer enforcement.** ADR-0005 says multi-connect is undefined; the current implementation lets two consumers steal messages from each other. Either reject second accept or fan out per-writer queues — only if a "second consumer" use case appears.
 
 ## Open infrastructure items
 
@@ -78,7 +78,6 @@ Things that bit me — flagging them so the next agent doesn't lose time:
 |---|---|
 | What is this project and why | `README.md` |
 | Architecture, invariants, do-not-break rules | `CLAUDE.md` |
-| Original design spec (historical reference) | `runelite-monkwatcher-bridge.md` |
 | Load-bearing architectural decisions | `docs/adr/0001-…0006-*.md` |
 | Build configuration | `build.gradle.kts`, `.mise.toml` |
 | What tests exist and what they prove | `src/test/java/io/axol/monkwatcher/*Test.java` |

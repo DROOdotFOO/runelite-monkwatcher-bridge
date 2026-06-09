@@ -11,7 +11,7 @@ Accepted (immutable)
 RuneLite explicitly permits informational plugins but forbids automation that
 simulates user input. Jagex's stance on macros is hostile and account-fatal.
 Both the author and reviewers will be tempted to "just add auto-attack" later
-- the original spec already flags this as the obvious next ask.
+- it is the obvious next ask.
 
 The rule needs a written, immutable home so a future contributor (or
 future-self at 2am) does not slide the line.

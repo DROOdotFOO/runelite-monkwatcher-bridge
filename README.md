@@ -11,7 +11,6 @@ Personal tool. Side-loaded via RuneLite's `--developer-mode`. Not submitted to p
 ## Quick start
 
 ```bash
-gradle wrapper --gradle-version 8.7   # one-time bootstrap
 ./gradlew shadowJar
 cp build/libs/runelite-monkwatcher-bridge-0.1.0.jar ~/.runelite/sideloaded-plugins/
 # Launch RuneLite with --developer-mode, enable "Raxol Monk Watcher Bridge"
@@ -33,10 +32,25 @@ Newline-delimited JSON over a Unix domain socket. Two shapes — both carry `"v"
 Tick payload (one per game tick):
 
 ```json
-{"v":1,"t":1701234567890,"tick":8421337,"anim":422,"poseAnim":808,
- "mouseIdleTicks":12,"kbIdleTicks":18,"npc":4127,"isMonk":true,
- "x":3057,"y":3484,"plane":0,"hp":67,"maxHp":85,"prayer":31,
- "maxPrayer":82,"runEnergy":84}
+{
+  "v": 1,
+  "t": 1701234567890,
+  "tick": 8421337,
+  "anim": 422,
+  "poseAnim": 808,
+  "mouseIdleTicks": 12,
+  "kbIdleTicks": 18,
+  "npc": 4127,
+  "isMonk": true,
+  "x": 3057,
+  "y": 3484,
+  "plane": 0,
+  "hp": 67,
+  "maxHp": 85,
+  "prayer": 31,
+  "maxPrayer": 82,
+  "runEnergy": 84
+}
 ```
 
 Event payload (discrete game events):
@@ -59,14 +73,14 @@ Three modules:
 
 Key invariants documented in ADRs:
 
-| ADR | Decision |
-|---|---|
-| [0001](docs/adr/0001-read-only-plugin.md) | No input synthesis, ever |
-| [0002](docs/adr/0002-unix-domain-socket-transport.md) | Unix domain socket over TCP/named pipes |
+| ADR                                                     | Decision                                                      |
+| ------------------------------------------------------- | ------------------------------------------------------------- |
+| [0001](docs/adr/0001-read-only-plugin.md)               | No input synthesis, ever                                      |
+| [0002](docs/adr/0002-unix-domain-socket-transport.md)   | Unix domain socket over TCP/named pipes                       |
 | [0003](docs/adr/0003-bounded-queue-drop-on-overflow.md) | Bounded queue, drop on overflow (never block the game thread) |
-| [0004](docs/adr/0004-ndjson-wire-format.md) | NDJSON wire format with `v: 1` versioning |
-| [0005](docs/adr/0005-single-consumer-model.md) | Single consumer; multi-connect undefined |
-| [0006](docs/adr/0006-sideloaded-distribution-only.md) | Sideloaded only; no plugin-hub |
+| [0004](docs/adr/0004-ndjson-wire-format.md)             | NDJSON wire format with `v: 1` versioning                     |
+| [0005](docs/adr/0005-single-consumer-model.md)          | Single consumer; multi-connect undefined                      |
+| [0006](docs/adr/0006-sideloaded-distribution-only.md)   | Sideloaded only; no plugin-hub                                |
 
 ## Testing
 
@@ -88,8 +102,8 @@ runelite-monkwatcher-bridge/
 ├── build.gradle.kts
 ├── settings.gradle.kts
 ├── runelite-plugin.properties
-├── runelite-monkwatcher-bridge.md       # original spec (historical)
 ├── CLAUDE.md                             # operator guide for Claude Code
+├── HANDOFF.md                            # current state for next agent
 ├── docs/adr/                             # architecture decision records
 ├── src/main/java/io/axol/monkwatcher/    # plugin code
 └── src/test/java/io/axol/monkwatcher/    # JUnit 4 + hand-rolled PBT

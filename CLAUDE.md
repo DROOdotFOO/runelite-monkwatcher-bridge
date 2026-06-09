@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Built. Source under `src/main/java/io/axol/monkwatcher/`, tests under `src/test/java/io/axol/monkwatcher/`, ADRs under `docs/adr/`. The original spec has been removed; ADRs are now the source of truth for design decisions.
 
-Gradle wrapper is **not** committed. Run `gradle wrapper --gradle-version 8.7` once to bootstrap `gradlew` before any other build command.
+Gradle wrapper is committed (`gradlew`, `gradle/wrapper/`). `.mise.toml` pins `java=temurin-17` and `gradle=8.7`. No bootstrap step required.
 
 ## Hard constraint: read-only plugin
 
@@ -95,12 +95,12 @@ Two shapes, distinguished by presence of an `event` key:
 
 ## Things deliberately out of scope
 
-Listed in the spec as explicit non-goals — push back if asked to add them:
+Explicit non-goals — push back if asked to add them:
 
 - Any form of input/action sending (see hard constraint above)
 - XP tracking (use RuneLite's built-in XP tracker)
 - Inventory snapshots
-- `level_up` events — type is reserved but not wired; the spec's empty `onStatChanged` stub was dropped in Phase 3 to avoid the per-XP-drop event-bus call. Add only if Raxol's view actually needs it.
+- `level_up` events — type is reserved but not wired. An empty `onStatChanged` `@Subscribe` would add an event-bus call per XP drop for no benefit; add only if Raxol's view actually needs it.
 - Screenshot capture
 
 ## Companion project
