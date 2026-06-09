@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repo state
 
-Built. Source under `src/main/java/io/axol/monkwatcher/`, tests under `src/test/java/io/axol/monkwatcher/`, ADRs under `docs/adr/`. The original spec lives at `runelite-monkwatcher-bridge.md` — treat it as historical context; the code has diverged in a few documented places (see ADRs and the testing section below).
+Built. Source under `src/main/java/io/axol/monkwatcher/`, tests under `src/test/java/io/axol/monkwatcher/`, ADRs under `docs/adr/`. The original spec has been removed; ADRs are now the source of truth for design decisions.
 
 Gradle wrapper is **not** committed. Run `gradle wrapper --gradle-version 8.7` once to bootstrap `gradlew` before any other build command.
 
